@@ -1,100 +1,113 @@
-# gobarber-api
+# GoBarber - API
 
-API da aplicação GoBarber, desenvolvida durante o bootcamp GoStack gerenciado pela Rocketseat
+Aplicação construída com técnicas mostradas no DDD. 
 
-# Especificações
+## Contextualização
 
-As características técnicas são descritas abaixo:
+Esse repositório teve sua base implementada no bootcamp que realizei pela Rocketseat, adaptando algumas regras e refatorando alguns códigos, para adequá-lo ao DDD.
 
-- Node.js
+Algumas integrações com Docker e melhorias de testes foram adicionados.
+
+## Estrutura
+
+Na pasta raiz do projeto (`src`), contem 4 principais pastas:
+
+* `@types` - definição de tipos para bibliotecas ou recursos não tipados;
+* `config` - abstração das configurações de serviços, bibliotecas, funcionalidades, etc;
+* `shared` - recursos utilizados como meio compartilhado, com alguns aspectos que remetem o _shared kernel_;
+* `modules` - contém os domínios da aplicação (usuários, agendamentos e notificações).
+
+## Requisitos
+
+Você pode ver um resumo dos requisitos elaborados para essa API clicando [aqui](./REQUIREMENTS.md).
+
+## Domínios
+
+Os principais domínios são descritos como:
+
+### Usuários
+As principais funcionalidades realizadas pelo domínio de usuários são:
+- Cadastro;
+- Autenticação;
+- Modificação de dados pessoais;
+- Definição de Avatar;
+- Recuperação de senha.
+
+### Agendamentos
+As principais operações feitas pelo domínio de agendamentos são:
+- Gerenciar horários reservados e livres para um prestador;
+- Permitir agendamento de um usuário para um prestador;
+- Listar os prestadores disponíveis;
+- Mostrar os horários livres de um prestador;
+- Controlar agendamentos dentro de um dia, com cada atendimento durando 1 (uma) hora;
+- Mostrar os agendamentos marcados para um prestador.
+
+### Notificações
+Tratado como um domínio de suporte, as operações presentes em notificações são:
+- Criar uma notificação para um usuário
+- Listar as notificações de um usuário
+- Marcar uma notificação como lida
+
+## Tecnologias
+
+Para desenvolver essa API as seguintes tecnologias foram utilizadas:
+
+- NodeJS
 - Typescript
+- Jest
 - Express
-- TypeORM
+- Celebrate
 - JWT
+- Multer
+- Nodemailer
+
+Relacionado a infraestrutura, persistência e rastreamento foram utilizados:
+
 - PostgreSQL
-- RESTful
+- MongoDB
+- Redis
+- Sentry
+- Amazon SES / Ethereal
+- Amazon S3 / Armazenamento em disco
+- Docker & Docker Compose
 
-# Mapeamento de funcionalidades
+## Startup
 
-## Rastreamento
+Para iniciar a aplicação (exemplo com `yarn` mas pode ser facilmente convertido para `npm`) basta executar os comandos:
 
-- [x] Recuperação de senha
-- [x] Atualização do perfil
-- [ ] Painel do prestador
-- [ ] Agendamento de serviços
+```bash
+# baixar as dependências
+yarn
 
-## Detalhes
+# iniciar os containers de infraestrutura
+docker-compose up -d
 
-### Recuperação de senha
+# criar o banco com as migrations e seeds
+# NOTA: apenas na primeira vez
+yarn typeorm migration:run
 
-**RF**
+#iniciar a aplicação
+yarn dev:server 
+```
 
-- O usuário deve poder recuperar sua senha informando o seu e-mail;
-- O usuário deve receber um e-mail com instruções de recuperação de senha;
-- O usuário deve poder resetar sua senha;
+Caso queira executar os testes do sistema:
 
-**RNF**
+```bash
+yarn test
+```
 
-- Utilizar Mailtrap para testar envios em ambiente de dev;
-- Utilizar Amazon SES para envios em produção;
-- O envio de e-mails deve acontecer em segundo plano (background job);
+Caso queira executar as migrations do banco de dados:
 
-**RN**
+```bash
+yarn typeorm migration:run
+```
 
-- O link enviado por email para resetar senha, deve expirar em 2h;
-- O usuário precisa confirmar a nova senha ao resetar sua senha;
+Caso queira gerar o código JS equivalente:
 
-### Atualização do perfil
+```bash
+yarn build
+```
 
-**RF**
-
-- O usuário deve poder atualizar seu nome, email e senha;
-
-**RN**
-
-- O usuário não pode alterar seu email para um email já utilizado;
-- Para atualizar sua senha, o usuário deve informar a senha antiga;
-- Para atualizar sua senha, o usuário precisa confirmar a nova senha;
-
-### Painel do prestador
-
-**RF**
-
-- O usuário deve poder listar seus agendamentos de um dia específico;
-- O prestador deve receber uma notificação sempre que houver um novo agendamento;
-- O prestador deve poder visualizar as notificações não lidas;
-
-**RNF**
-
-- Os agendamentos do prestador no dia devem ser armazenados em cache;
-- As notificações do prestador devem ser armazenadas no MongoDB;
-- As notificações do prestador devem ser enviadas em tempo-real utilizando Socket.io;
-
-**RN**
-
-- A notificação deve ter um status de lida ou não-lida para que o prestador possa controlar;
-
-### Agendamento de serviços
-
-**RF**
-
-- O usuário deve poder listar todos prestadores de serviço cadastrados;
-- O usuário deve poder listar os dias de um mês com pelo menos um horário disponível de um prestador;
-- O usuário deve poder listar horários disponíveis em um dia específico de um prestador;
-- O usuário deve poder realizar um novo agendamento com um prestador;
-
-**RNF**
-
-- A listagem de prestadores deve ser armazenada em cache;
-
-**RN**
-
-- Os agendamentos devem estar disponíveis entre 8h às 18h (Primeiro às 8h, último às 17h);
-- O usuário não pode agendar em um horário que já passou;
-- O usuário não pode agendar serviços consigo mesmo;
-- Cada agendamento deve durar 1h exatamente;
-- O usuário não pode agendar em um horário já ocupado;
-
-# Autor
-
-Leonardo Braz ([@lhleonardo](https://github.com/lhleonardo))
+## Autor
+ | [<img src="https://github.com/lhleonardo.png" width=115><br><sub>Leonardo Braz</sub>](https://github.com/lhleonardo) <br><sub>Aluno de Graduação</sub>|
+| :---: |
