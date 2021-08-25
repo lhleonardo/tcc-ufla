@@ -36,4 +36,6 @@ services:
   cache:
     container_name: gobarber-cache
     image: redis:6.0.10-alpine
+    ports:
+      - "6379:6379"
 
