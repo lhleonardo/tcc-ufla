@@ -23,7 +23,7 @@ Trata-se de um sistema para gerenciamento de barbearias, utilizando a stack de N
 
 ## :scroll: Autores
 
- | [<img src="https://github.com/lhleonardo.png" width=115><br><sub>Leonardo Braz</sub>](https://github.com/lhleonardo) <br><sub>Aluno de Graduação</sub>| [<img src="https://github.com/rterrabh.png" width=115><br><sub>Ricardo Terra</sub>](https://github.com/LMaroto) <br><sub>Orientador</sub>|
+ | [<img src="https://github.com/lhleonardo.png" width=115><br><sub>Leonardo Braz</sub>](https://github.com/lhleonardo) <br><sub>Aluno de Graduação</sub>| [<img src="https://github.com/rterrabh.png" width=115><br><sub>Ricardo Terra</sub>](https://github.com/rterrabh) <br><sub>Orientador</sub>|
 | :---: | :---: |
 
 
