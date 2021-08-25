@@ -16,6 +16,8 @@ services:
   database:
     container_name: gobarber-database
     image: postgres:13.1-alpine
+    ports:
+      - "5432:5432"
     environment: 
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=docker
