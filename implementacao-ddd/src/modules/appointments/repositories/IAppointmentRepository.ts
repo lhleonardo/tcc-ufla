@@ -11,4 +11,8 @@ export default interface IAppointmentRepository {
   findInMonth(data: IFindAppointmentsInMonthDTO): Promise<Appointment[]>;
 
   findAllInDay(data: IFindAllAppointmentInDay): Promise<Appointment[]>;
+
+  findById(id: string): Promise<Appointment | undefined>;
+
+  finish(appointmentId: string): Promise<Appointment>
 }

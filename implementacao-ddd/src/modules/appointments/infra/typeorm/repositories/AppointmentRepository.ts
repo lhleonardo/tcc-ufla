@@ -4,6 +4,7 @@ import ICreateAppointmentDTO from '@modules/appointments/dtos/ICreateAppointment
 import { Repository, getRepository, Raw } from 'typeorm';
 import IFindAppointmentsInMonthDTO from '@modules/appointments/dtos/IFIndAppointmentsInMonthDTO';
 import IFindAllAppointmentInDay from '@modules/appointments/dtos/IFindAllAppointmentInDay';
+import AppError from '@shared/errors/AppError';
 
 export default class AppointmentRepository implements IAppointmentRepository {
   private ormRepository: Repository<Appointment>;
@@ -11,6 +12,8 @@ export default class AppointmentRepository implements IAppointmentRepository {
   constructor() {
     this.ormRepository = getRepository(Appointment);
   }
+
+
 
   public async create({
     providerId,
@@ -84,4 +87,24 @@ export default class AppointmentRepository implements IAppointmentRepository {
 
     return findAppointment;
   }
+
+
+  public async findById(id: string): Promise<Appointment | undefined> {
+    const appointment = await this.ormRepository.findOne(id);
+
+    return appointment
+  }
+
+  public async finish(appointmentId: string): Promise<Appointment> {
+    await this.ormRepository.update(appointmentId, {finishDate: new Date()})
+
+    const updatedAppointment = await this.ormRepository.findOne(appointmentId);
+
+    if (!updatedAppointment) {
+      throw new AppError("Invalid appointmentId provided")
+    }
+
+    return updatedAppointment
+  }
+
 }

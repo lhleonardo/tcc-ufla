@@ -6,9 +6,11 @@ import { v4 as uuid } from 'uuid';
 import { getDate, getMonth, getYear, isEqual } from 'date-fns';
 import IFindAppointmentsInMonthDTO from '@modules/appointments/dtos/IFIndAppointmentsInMonthDTO';
 import IFindAllAppointmentInDay from '@modules/appointments/dtos/IFindAllAppointmentInDay';
+import AppError from '@shared/errors/AppError';
 
 export default class FakeAppointmentRepository
   implements IAppointmentRepository {
+
   private appointments: Appointment[] = [];
 
   public async create({
@@ -67,5 +69,23 @@ export default class FakeAppointmentRepository
         getDate(appointment.date) === day,
     );
     return appointments;
+  }
+
+  public async findById(id: string): Promise<Appointment | undefined> {
+    const appointment = this.appointments.find(appointment => appointment.id === id)
+
+    return appointment
+  }
+
+  public async finish(appointmentId: string): Promise<Appointment> {
+    const appointmentIndex = this.appointments.findIndex(appointment => appointment.id === appointmentId);
+
+    if (appointmentId) {
+      this.appointments[appointmentIndex].finishDate = new Date();
+
+      return this.appointments[appointmentIndex];
+    } else {
+      throw new AppError("Invalid appointmentId provided");
+    }
   }
 }
