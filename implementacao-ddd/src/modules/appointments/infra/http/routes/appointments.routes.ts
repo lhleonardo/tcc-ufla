@@ -5,9 +5,12 @@ import { celebrate, Segments, Joi } from 'celebrate';
 import ensureAuthentication from '@modules/users/infra/http/middlewares/ensureAuthentication';
 import AppointmentsController from '@modules/appointments/infra/http/controllers/AppointmentsController';
 import ProviderAppointmentsController from '@modules/appointments/infra/http/controllers/ProviderAppointmentsController';
+import FinishAppointmentController from '../controllers/FinishAppointmentController';
+import { homedir } from 'os';
 
 const router = Router();
 const appointmentsController = new AppointmentsController();
+const finishAppointmentController = new FinishAppointmentController()
 const providerAppointmentsController = new ProviderAppointmentsController();
 
 // necessitam de autenticação
@@ -34,6 +37,14 @@ router.get(
     }).required(),
   }),
   providerAppointmentsController.index,
+);
+
+router.post(
+  "/:id/finish",
+  celebrate({
+    [Segments.QUERY]: Joi.object({ id: Joi.string().uuid().required() })
+  }),
+  finishAppointmentController.create
 );
 
 export default router;
