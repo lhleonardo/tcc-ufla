@@ -21,7 +21,7 @@ app.use(cors());
 app.use(express.json());
 // rota estática para acessar arquivos que foram enviados
 app.use('/files', express.static(uploadConfig.uploadFolder));
-app.use(rateLimiter);
+// app.use(rateLimiter);
 app.use(routes);
 
 app.use(errors());
@@ -34,9 +34,12 @@ app.use(
         .json({ status: 'error', message: error.message });
     }
 
+    console.log(error.stack);
+
     return response
       .status(500)
       .json({ status: 'error', message: 'Internal Server Error' });
+
   },
 );
 

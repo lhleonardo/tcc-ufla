@@ -40,6 +40,6 @@ export default class Appointment {
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
-  @Column({ name: "finish_date", type: "timestamp" })
+  @Column({ name: "finished_date", type: "timestamp" })
   finishDate: Date;
 }
