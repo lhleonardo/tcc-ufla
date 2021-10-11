@@ -1,0 +1,47 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "baseUrl": "./src",
+    "paths": {
+      "@config/*": [
+        "config/*"
+      ],
+      "@controllers/*": [
+        "controllers/*"
+      ],
+      "@services/*": [
+        "services/*"
+      ],
+      "@errors/*": [
+        "errors/*"
+      ],
+      "@models/*": [
+        "models/*"
+      ],
+      "@repositories/*": [
+        "repositories/*"
+      ],
+      "@middlewares/*": [
+        "middlewares/*"
+      ],
+      "@providers/*": [
+        "providers/*"
+      ],
+      "@routes/*": [
+        "routes/*"
+      ],
+      "@database/*": [
+        "database/*"
+      ]
+    },
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}

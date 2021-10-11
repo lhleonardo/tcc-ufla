@@ -1,0 +1,31 @@
+[
+  {
+    "name": "default",
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "postgres",
+    "password": "docker",
+    "database": "gobarber",
+    "migrations": [
+      "./src/database/migrations/*.ts"
+    ],
+    "entities": [
+      "./src/models/*.ts"
+    ],
+    "cli": {
+      "migrationsDir": "./src/database/migrations"
+    }
+  },
+  {
+    "name": "mongo",
+    "type": "mongodb",
+    "host": "localhost",
+    "port": 27017,
+    "database": "gobarber",
+    "useUnifiedTopology": true,
+    "entities": [
+      "./src/models/*.ts"
+    ]
+  }
+]
