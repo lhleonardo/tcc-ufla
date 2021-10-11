@@ -13,6 +13,9 @@ const tipoImplementacao = "ddd";
 const loggedUser =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzM5NzEzMTQsImV4cCI6MTYzNDA1NzcxNCwic3ViIjoiZTEyOTU0ZDktNDc0ZS00NGUxLWE0NGYtZjg1MDM0ZTg5MzA1In0.yxdBzkxGNPw2XbbADw7zpaTUjyVZ8rfDNmvl81u0pZw";
 
+const providerToken =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzM5NzM3MTcsImV4cCI6MTYzNDA2MDExNywic3ViIjoiMDBjZTlkN2MtZWM5YS00MzhjLWE3YTYtNzQ2OTZkMmUyZjhkIn0.4rZWhBQx4EYNJEETN1vuxC7XB_yGVxA65v062aUjEos";
+
 const requests = [
   {
     name: "Criar conta",
@@ -32,9 +35,31 @@ const requests = [
     execute: async (index) => {
       const appointmentDate = new Date();
       appointmentDate.setDate(appointmentDate.getDate() + index);
+      appointmentDate.setHours(10);
 
       const providerId = "00ce9d7c-ec9a-438c-a7a6-74696d2e2f8d";
 
+      await client.post(
+        "/appointments",
+        { providerId, date: appointmentDate },
+        { headers: { Authorization: `Bearer ${loggedUser}` } }
+      );
+
+      appointmentDate.setHours(12);
+      await client.post(
+        "/appointments",
+        { providerId, date: appointmentDate },
+        { headers: { Authorization: `Bearer ${loggedUser}` } }
+      );
+
+      appointmentDate.setHours(14);
+      await client.post(
+        "/appointments",
+        { providerId, date: appointmentDate },
+        { headers: { Authorization: `Bearer ${loggedUser}` } }
+      );
+
+      appointmentDate.setHours(16);
       await client.post(
         "/appointments",
         { providerId, date: appointmentDate },
@@ -46,10 +71,26 @@ const requests = [
     name: "Ver prestadores disponíveis",
     output: `./resultados/ver-prestadores-${tipoImplementacao}.txt`,
     execute: async () => {
-      await client.get(
-        "/providers",
-        { headers: { Authorization: `Bearer ${loggedUser}` } }
-      );
+      await client.get("/providers", {
+        headers: { Authorization: `Bearer ${loggedUser}` },
+      });
+    },
+  },
+  {
+    name: "Listar agendamentos marcados",
+    output: `./resultados/listar-agendamentos-${tipoImplementacao}.txt`,
+    execute: async (index) => {
+      const dataListagem = new Date();
+      dataListagem.setDate(dataListagem.getDate() + index);
+
+      await client.get("/appointments/me", {
+        headers: { Authorization: `Bearer ${providerToken}` },
+        params: {
+          year: dataListagem.getFullYear(),
+          month: dataListagem.getMonth() + 1,
+          day: dataListagem.getDate()
+        }
+      });
     },
   },
 ];
