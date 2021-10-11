@@ -10,6 +10,9 @@ const client = axios.create({
 const NUM_EXECUTIONS = 1000;
 const tipoImplementacao = "ddd";
 
+const loggedUser =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzM5NzEzMTQsImV4cCI6MTYzNDA1NzcxNCwic3ViIjoiZTEyOTU0ZDktNDc0ZS00NGUxLWE0NGYtZjg1MDM0ZTg5MzA1In0.yxdBzkxGNPw2XbbADw7zpaTUjyVZ8rfDNmvl81u0pZw";
+
 const requests = [
   {
     name: "Criar conta",
@@ -30,14 +33,22 @@ const requests = [
       const appointmentDate = new Date();
       appointmentDate.setDate(appointmentDate.getDate() + index);
 
-      const userToken =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzM5NzEzMTQsImV4cCI6MTYzNDA1NzcxNCwic3ViIjoiZTEyOTU0ZDktNDc0ZS00NGUxLWE0NGYtZjg1MDM0ZTg5MzA1In0.yxdBzkxGNPw2XbbADw7zpaTUjyVZ8rfDNmvl81u0pZw";
       const providerId = "00ce9d7c-ec9a-438c-a7a6-74696d2e2f8d";
 
       await client.post(
         "/appointments",
         { providerId, date: appointmentDate },
-        { headers: { Authorization: `Bearer ${userToken}` } }
+        { headers: { Authorization: `Bearer ${loggedUser}` } }
+      );
+    },
+  },
+  {
+    name: "Ver prestadores disponíveis",
+    output: `./resultados/ver-prestadores-${tipoImplementacao}.txt`,
+    execute: async () => {
+      await client.get(
+        "/providers",
+        { headers: { Authorization: `Bearer ${loggedUser}` } }
       );
     },
   },
