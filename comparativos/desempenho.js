@@ -4,17 +4,19 @@ const fs = require("fs").promises;
 const axios = require("axios");
 
 const client = axios.create({
-  baseURL: "http://172.21.66.232:3333",
+  baseURL: "http://172.21.71.105:3333",
 });
 
 const NUM_EXECUTIONS = 1000;
-const tipoImplementacao = "semddd";
+const tipoImplementacao = "ddd";
 
 const loggedUser =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzM5OTc1NzMsImV4cCI6MTYzNDA4Mzk3Mywic3ViIjoiYjU0MWVmOWYtYzIxMC00ZDcyLWIxYzktODIzYzZmNDRlYmRiIn0.8-FaqXubWY2sZBIMmfK24CGQt61NGCOaLiuF5piZqbs";
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzQwNDAyMDEsImV4cCI6MTYzNDEyNjYwMSwic3ViIjoiZTEyOTU0ZDktNDc0ZS00NGUxLWE0NGYtZjg1MDM0ZTg5MzA1In0.RBgNFIkrN2UC-RqrECXR7mPKdyXa9t2JLk_GvaaCpXk";
 
 const providerToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzM5OTg5NzQsImV4cCI6MTYzNDA4NTM3NCwic3ViIjoiYmU4NTlmODgtZmM3YS00YWRlLWI0NGQtN2NhMzZhOTI2ZTA3In0.hZlVGLYbCnbnyyvwb4SX9ym4FCYZZ04RA61k0QM5HQk";
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzQwNDAxODMsImV4cCI6MTYzNDEyNjU4Mywic3ViIjoiMDBjZTlkN2MtZWM5YS00MzhjLWE3YTYtNzQ2OTZkMmUyZjhkIn0.q-99KDozyc4SRzXxzMFGUyxYYYg2HtvyYQwYG4Wn47Y";
+
+const providerId = "00ce9d7c-ec9a-438c-a7a6-74696d2e2f8d";
 
 const requests = [
   {
@@ -36,8 +38,6 @@ const requests = [
       const appointmentDate = new Date();
       appointmentDate.setDate(appointmentDate.getDate() + index);
       appointmentDate.setHours(10);
-
-      const providerId = "be859f88-fc7a-4ade-b44d-7ca36a926e07";
 
       await client.post(
         "/appointments",
