@@ -2,13 +2,15 @@ import ICacheProvider from '../ICacheProvider';
 
 import Redis, { Redis as RedisClient } from 'ioredis';
 
-import redisConfig from "@config/cache"
+import redisConfig from '@config/cache';
 
 export default class RedisCacheProvider implements ICacheProvider {
   private client: RedisClient;
 
   constructor() {
+    console.log('Conectando redis...');
     this.client = new Redis(redisConfig.config.redis);
+    console.log(redisConfig.config.redis);
   }
 
   public async save(key: string, value: any): Promise<void> {

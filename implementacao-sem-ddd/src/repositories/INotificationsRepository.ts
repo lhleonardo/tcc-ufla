@@ -1,4 +1,4 @@
-import Notification from '@models/Notification';
+import Notification from '@schemas/Notification';
 import ICreateNotificationDTO from './dtos/ICreateNotificationDTO';
 
 export default interface INotificationsRepository {

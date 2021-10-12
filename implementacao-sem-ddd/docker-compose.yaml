@@ -3,28 +3,28 @@ version: '3'
 services:
   # PostgreSQL
   database:
-    container_name: database
+    container_name: semddd-database
     image: postgres:13.1-alpine
-    environment: 
+    environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=without_ddd
+      - POSTGRES_DB=gobarber_sem_ddd
     volumes:
       - ./.docker/database_data/:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - "5432:5432"
 
   # MongoDB
   notifications:
-    container_name: notifications
+    container_name: semddd-notifications
     image: mongo:4.4.3
     ports:
-      - 27017:27017
-  
+      - "27017:27017"
+
   # Redis
   cache:
-    container_name: cache
+    container_name: semddd-cache
     image: redis:6.0.10-alpine
     ports:
-      - 6379:6379
+      - "6379:6379"
 

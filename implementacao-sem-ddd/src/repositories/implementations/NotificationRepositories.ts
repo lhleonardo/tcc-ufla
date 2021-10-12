@@ -1,4 +1,4 @@
-import Notification from '@models/Notification';
+import Notification from '@schemas/Notification';
 import ICreateNotificationDTO from '@repositories/dtos/ICreateNotificationDTO';
 import INotificationsRepository from '@repositories/INotificationsRepository';
 import { getMongoRepository, MongoRepository } from 'typeorm';

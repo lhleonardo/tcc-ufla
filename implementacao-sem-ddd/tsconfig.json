@@ -23,6 +23,9 @@
       "@models/*": [
         "models/*"
       ],
+      "@schemas/*": [
+        "schemas/*"
+      ],
       "@repositories/*": [
         "repositories/*"
       ],

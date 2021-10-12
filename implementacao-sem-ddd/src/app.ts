@@ -1,3 +1,4 @@
+import 'express-async-errors';
 import uploadConfig from '@config/upload';
 import AppError from '@errors/AppError';
 import rateLimiter from '@middlewares/rateLimiter';
@@ -9,7 +10,6 @@ import "@database/index"
 import { errors } from 'celebrate';
 import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
-import 'express-async-errors';
 
 const app = express();
 
@@ -18,7 +18,7 @@ app.use(cors());
 app.use(express.json());
 // rota estática para acessar arquivos que foram enviados
 app.use('/files', express.static(uploadConfig.uploadFolder));
-app.use(rateLimiter);
+// app.use(rateLimiter);
 app.use(routes);
 
 app.use(errors());

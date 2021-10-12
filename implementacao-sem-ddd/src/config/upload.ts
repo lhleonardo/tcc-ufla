@@ -58,11 +58,13 @@ export default {
     },
 
     generateURL: file => {
-      let url = process.env.STORAGE_URL;
-      if (process.env.STORAGE_DRIVER === 's3') {
+      const driver = process.env.STORAGE_DRIVER;
+      var url: string = process.env.STORAGE_URL ?? "";
+
+      if (driver === 's3') {
         url = url
-          .replace('{bucket}', process.env.STORAGE_AWS_BUCKET)
-          .replace('{region}', process.env.AMAZON_REGION);
+          .replace('{bucket}', process.env.STORAGE_AWS_BUCKET || "")
+          .replace('{region}', process.env.AMAZON_REGION || "");
       }
       return `${url}${file}`;
     },
