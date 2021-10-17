@@ -5,6 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.22.0",
+    "tree-kill": "^1.2.2",
     "uuid": "^8.3.2"
   }
 }
