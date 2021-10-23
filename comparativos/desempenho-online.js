@@ -2,7 +2,7 @@ const { v4: uuid } = require("uuid");
 const axios = require("axios");
 
 const client = axios.create({
-  baseURL: "http://localhost:3333",
+  baseURL: "http://157.230.0.64:3333",
 });
 
 const NUM_EXECUTIONS = 300;

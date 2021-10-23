@@ -1,0 +1,35 @@
+funcao GerarEstatisticas
+inicio
+    declarar dataFrames como array de dataFrame
+
+    // considerar dataFrameFuncaoX como
+    // dataFrame com valor b e p, cada um com 300 valores numéricos 
+
+    dataFrames = [dataFrameFuncao1, dataFrameFuncao2, dataFrameFuncao3, dataFrameFuncao4]
+
+    para cada dataFrame dentro de dataFrames faça
+    inicio para
+        // calcular diferenca com 
+        dataFrame$diff <- dataFrame$p - dataFrame$b
+
+        // ver as medias
+        mean(dataFrame$b)
+        mean(dataFrame$p)
+        mean(dataFrame$p)-mean(dataFrame$b)
+
+        // verificar normalidade com shapiro
+        shapiro.test(dataFrame$diff)
+
+        // executar teste T pareado
+        t.test(dataFrame$p, dataFrame$b, paired=T)
+
+        // calcular estatisticas
+        dataframe_bar_sub_d <- sum(dataFrame$p-dataFrame$b)/length(dataFrame$p)
+        s_sub_dataFrame <- sd(dataFrame$p-dataFrame$b)
+        t_atual <- (dataframe_bar_sub_d - 25)/(s_sub_dataFrame / sqrt(length(x$p)))
+
+        // imprimir essas informações
+    fim para
+fim
+
+Wilcoxon
