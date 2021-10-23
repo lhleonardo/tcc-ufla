@@ -2,6 +2,7 @@ import ProviderDayAvailabilityController from '@controllers/appointments/Provide
 import ProviderMonthAvailabilityController from '@controllers/appointments/ProviderMonthAvailabilityController';
 import ProvidersController from '@controllers/appointments/ProvidersController';
 import ensureAuthentication from '@middlewares/ensureAuthentication';
+import { measureExecutionTime } from '@middlewares/measureExecutionTime';
 import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
 
@@ -13,7 +14,11 @@ const dayAvailaibityController = new ProviderDayAvailabilityController();
 
 providersRouter.use(ensureAuthentication);
 
-providersRouter.get('/', providersController.index);
+providersRouter.get(
+  '/',
+  measureExecutionTime('../execucoes/ver-prestadores-semddd.txt'),
+  providersController.index,
+);
 
 providersRouter.get(
   '/:providerId/month-availability',

@@ -6,7 +6,7 @@ function writeTimeExecution(time: number, output: string) {
   fs.appendFileSync(output, time.toString() + '\n');
 }
 
-export function mensureExecutionTime(output: string) {
+export function measureExecutionTime(output: string) {
   return function (request: Request, response: Response, next: NextFunction) {
     const start = performance.now();
 

@@ -2,7 +2,7 @@ import ProviderDayAvailabilityController from '@modules/appointments/infra/http/
 import ProviderMonthAvailabilityController from '@modules/appointments/infra/http/controllers/ProviderMonthAvailabilityController';
 import ProvidersController from '@modules/appointments/infra/http/controllers/ProvidersController';
 import ensureAuthentication from '@modules/users/infra/http/middlewares/ensureAuthentication';
-import { mensureExecutionTime } from '@shared/infra/http/middlewares/mensureExecutionTime';
+import { measureExecutionTime } from '@shared/infra/http/middlewares/measureExecutionTime';
 import { celebrate, Segments, Joi } from 'celebrate';
 
 import { Router } from 'express';
@@ -17,7 +17,7 @@ providersRouter.use(ensureAuthentication);
 
 providersRouter.get(
   '/',
-  mensureExecutionTime('../execucoes/ver-prestadores-ddd.txt'),
+  measureExecutionTime('../execucoes/ver-prestadores-ddd.txt'),
   providersController.index,
 );
 
