@@ -2,6 +2,7 @@ import ProviderDayAvailabilityController from '@modules/appointments/infra/http/
 import ProviderMonthAvailabilityController from '@modules/appointments/infra/http/controllers/ProviderMonthAvailabilityController';
 import ProvidersController from '@modules/appointments/infra/http/controllers/ProvidersController';
 import ensureAuthentication from '@modules/users/infra/http/middlewares/ensureAuthentication';
+import { mensureExecutionTime } from '@shared/infra/http/middlewares/mensureExecutionTime';
 import { celebrate, Segments, Joi } from 'celebrate';
 
 import { Router } from 'express';
@@ -14,7 +15,11 @@ const dayAvailaibityController = new ProviderDayAvailabilityController();
 
 providersRouter.use(ensureAuthentication);
 
-providersRouter.get('/', providersController.index);
+providersRouter.get(
+  '/',
+  mensureExecutionTime('../execucoes/ver-prestadores-ddd.txt'),
+  providersController.index,
+);
 
 providersRouter.get(
   '/:providerId/month-availability',

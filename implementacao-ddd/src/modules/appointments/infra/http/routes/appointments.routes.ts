@@ -7,6 +7,7 @@ import AppointmentsController from '@modules/appointments/infra/http/controllers
 import ProviderAppointmentsController from '@modules/appointments/infra/http/controllers/ProviderAppointmentsController';
 import FinishAppointmentController from '../controllers/FinishAppointmentController';
 import { homedir } from 'os';
+import { mensureExecutionTime } from '@shared/infra/http/middlewares/mensureExecutionTime';
 
 const router = Router();
 const appointmentsController = new AppointmentsController();
@@ -24,6 +25,7 @@ router.post(
       date: Joi.date().required(),
     }).required(),
   }),
+  mensureExecutionTime("../execucoes/criar-agendamento-ddd.txt"),
   appointmentsController.create,
 );
 
@@ -36,6 +38,7 @@ router.get(
       day: Joi.number().integer().min(1).max(31).required(),
     }).required(),
   }),
+  mensureExecutionTime("../execucoes/ver-agendamentos-ddd.txt"),
   providerAppointmentsController.index,
 );
 

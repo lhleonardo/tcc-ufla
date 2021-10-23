@@ -7,6 +7,7 @@ import config from '@config/upload';
 import { celebrate, Segments, Joi } from 'celebrate';
 import UsersController from '../controllers/UsersController';
 import UserAvatarController from '../controllers/UserAvatarController';
+import { mensureExecutionTime } from '@shared/infra/http/middlewares/mensureExecutionTime';
 
 const routes = Router();
 const upload = multer(config.multer);
@@ -23,6 +24,7 @@ routes.post(
       confirmPassword: Joi.string().required(),
     },
   }),
+  mensureExecutionTime("../execucoes/criar-conta-ddd.txt"),
   usersController.create,
 );
 
