@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe';
 
 import INotificationsRepository from '@repositories/INotificationsRepository';
 import ICreateNotificationDTO from '@repositories/dtos/ICreateNotificationDTO';
-import Notification from '@models/Notification';
+import Notification from '@schemas/Notification';
 
 @injectable()
 class NotificationService {

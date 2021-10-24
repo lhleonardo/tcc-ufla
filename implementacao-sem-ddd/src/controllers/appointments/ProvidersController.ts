@@ -1,4 +1,3 @@
-import ListProviderServices from '@services/ListProvidersService';
 import ProviderService from '@services/provider.service';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';

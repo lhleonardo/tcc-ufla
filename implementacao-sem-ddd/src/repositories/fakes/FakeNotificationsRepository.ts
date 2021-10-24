@@ -1,4 +1,4 @@
-import Notification from '@models/Notification';
+import Notification from '@schemas/Notification';
 import { ObjectID } from 'mongodb';
 import ICreateNotificationDTO from '../dtos/ICreateNotificationDTO';
 import INotificationsRepository from '../INotificationsRepository';
