@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import fs from 'fs';
+import { performance } from 'perf_hooks';
 
 function writeTimeExecution(time: number, output: string) {
   if (time <= 0) return;
