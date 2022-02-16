@@ -5,6 +5,8 @@ import ProviderService from '@services/provider.service';
 
 let appointmentsRepository: FakeAppointmentRepository;
 let listProviderMonthAvailability: ProviderService;
+let dateMock: jest.SpyInstance
+
 
 describe('ListProviderMonthAvailability', () => {
   beforeEach(() => {
@@ -14,7 +16,13 @@ describe('ListProviderMonthAvailability', () => {
       {} as ICacheProvider,
       appointmentsRepository,
     );
+
+    dateMock = jest.spyOn(Date, "now").mockImplementation(() => new Date(2020, 4, 1).valueOf())
   });
+
+  afterAll(() => {
+    dateMock.mockRestore();
+  })
 
   it('Deve listar a disponibilidade de um prestador em um mês', async () => {
     // não deve sair na relação de dias

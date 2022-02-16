@@ -52,7 +52,7 @@ describe('ListProviderAppointments', () => {
       userId: 'user-id',
     });
 
-    const appointments = await listProviderAppointments.findByDayAvailability({
+    const appointments = await listProviderAppointments.findAllAppointmentsInDay({
       providerId: 'provider-id',
       day: 15,
       month: 9,
@@ -65,10 +65,6 @@ describe('ListProviderAppointments', () => {
   });
 
   it('Deve não mostrar agendamentos caso não tenham sido marcados', async () => {
-    jest
-      .spyOn(Date, 'now')
-      .mockImplementation(() => new Date(2020, 8, 15, 8).getTime());
-
     await appointmentsRepository.create({
       date: new Date(2020, 8, 15, 15),
       providerId: 'provider-id',
@@ -87,6 +83,10 @@ describe('ListProviderAppointments', () => {
       userId: 'user-id',
     });
 
+    jest
+      .spyOn(Date, 'now')
+      .mockImplementation(() => new Date(2020, 8, 15, 16).getTime());
+
     const appointments = await listProviderAppointments.findByDayAvailability({
       providerId: 'another-provider-id',
       day: 15,
@@ -94,6 +94,6 @@ describe('ListProviderAppointments', () => {
       year: 2020,
     });
 
-    expect(appointments).toEqual([]);
+    expect(appointments).not.toEqual(expect.arrayContaining([{ available: true }]));
   });
 });

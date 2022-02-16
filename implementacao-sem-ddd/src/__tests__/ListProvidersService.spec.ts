@@ -33,10 +33,16 @@ describe('ListProviders', () => {
       email: 'maria@hotmail.com',
       password: '123123',
     });
+
     const providers = await listProviders.getProviders({
       excludeUserId: loggedUser.id,
     });
 
-    expect(providers).toEqual(expect.arrayContaining([provider1, provider2]));
+    // vem com o avatar nulo pois não foi atribuido nenhum avatar aqui
+    const expectedUsers = [provider1, provider2].map(({id, name, email,}) => ({
+      id, name, email, avatarURL: null
+    }));
+
+    expect(providers).toEqual(expect.arrayContaining(expectedUsers));
   });
 });

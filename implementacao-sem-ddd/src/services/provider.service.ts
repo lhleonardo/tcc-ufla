@@ -1,3 +1,4 @@
+import Appointment from '@models/Appointment';
 import User from '@models/User';
 import ICacheProvider from '@providers/cache/ICacheProvider';
 import IFindAllProvidersDTO from '@repositories/dtos/IFindAllProvidersDTO';
@@ -37,6 +38,13 @@ type IProviderMonthAvailability = Array<{
   available: boolean;
 }>;
 
+type IFindAllAppointmentsInDay = {
+  providerId: string;
+  month: number;
+  year: number;
+  day: number;
+};
+
 @injectable()
 class ProviderService {
   constructor(
@@ -48,7 +56,7 @@ class ProviderService {
 
     @inject('AppointmentRepository')
     private appointmentsRepository: IAppointmentRepository,
-  ) {}
+  ) { }
 
   public async getProviders({
     excludeUserId,
@@ -138,6 +146,29 @@ class ProviderService {
     });
 
     return days;
+  }
+
+  public async findAllAppointmentsInDay({ providerId, year, month, day }: IFindAllAppointmentsInDay) {
+    const cacheKey = `provider-appointments:${providerId}:${year}-${month}-${day}`;
+
+    let appointments = await this.cacheProvider.recovery<Appointment[]>(
+      cacheKey,
+    );
+
+    if (!appointments) {
+      appointments = classToClass(
+        await this.appointmentsRepository.findAllInDay({
+          providerId,
+          day,
+          month,
+          year,
+        }),
+      );
+
+      await this.cacheProvider.save(cacheKey, appointments);
+    }
+
+    return appointments;
   }
 }
 
